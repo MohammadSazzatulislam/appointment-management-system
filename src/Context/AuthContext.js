@@ -16,9 +16,18 @@ const provider = new GoogleAuthProvider();
 
 export const UserAuthContext = createContext();
 
+ const events = [
+   {
+     title: "hello world",
+     start: new Date(2022, 12, 29),
+     end: new Date(2022, 12, 30),
+   },
+ ];
 const AuthContext = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
+  const [allEvent, setAllEvent] = useState(events);
 
   // sign up new user
   const signUpNewUser = (email, password) => {
@@ -40,9 +49,17 @@ const AuthContext = ({ children }) => {
 
   // google login system
   const googleSignIn = () => {
-    setLoading(true)
+    setLoading(true);
     return signInWithPopup(auth, provider);
-  }
+  };
+
+  const handleAddEvent = () => {
+
+    setAllEvent([...allEvent, newEvent]);
+
+    // setNewEvent({...newEvent });
+    console.log(newEvent);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -72,6 +89,11 @@ const AuthContext = ({ children }) => {
     setLoading,
     loading,
     googleSignIn,
+    handleAddEvent,
+    setNewEvent,
+    newEvent,
+    allEvent,
+    setAllEvent,
   };
 
   return (
