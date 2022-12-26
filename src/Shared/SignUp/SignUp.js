@@ -5,7 +5,8 @@ import { UserAuthContext } from "../../Context/AuthContext";
 import { useForm } from "react-hook-form";
 
 const SignUp = () => {
-  const { user, signUpNewUser, updateName } = useContext(UserAuthContext);
+  const { user, signUpNewUser, updateName, googleSignIn } =
+    useContext(UserAuthContext);
   const [signUpError, setSignUpError] = useState("");
   const {
     register,
@@ -18,6 +19,7 @@ const SignUp = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
+  // sign up with email and password
   const onSubmit = (data) => {
     const name = data.name;
     const email = data.email;
@@ -44,6 +46,21 @@ const SignUp = () => {
         setSignUpError(error.message);
       });
   };
+
+  // sign up with google
+  const handleGoogle = () => {
+    googleSignIn()
+      .then((result) => {
+        const user = result.user;
+        if (user?.uid) {
+          navigate(from, { replace: true });
+        }
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   return (
     <div>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-300">
@@ -51,7 +68,10 @@ const SignUp = () => {
           <div className="font-medium self-center text-xl sm:text-2xl uppercase text-gray-800">
             Sign Up To Your Account
           </div>
-          <button className="relative mt-6 border rounded-md py-2 text-sm text-gray-800 bg-gray-100 hover:bg-gray-200">
+          <button
+            onClick={handleGoogle}
+            className="relative mt-6 border rounded-md py-2 text-sm text-gray-800 bg-gray-100 hover:bg-gray-200"
+          >
             <span className="absolute left-0 top-0 flex items-center justify-center h-full w-10 text-blue-500">
               <FaGoogle className="w-5 h-5"></FaGoogle>
             </span>

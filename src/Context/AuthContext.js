@@ -3,13 +3,16 @@ import app from "../firebase/firebase.config";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
 
 const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
 export const UserAuthContext = createContext();
 
@@ -29,10 +32,17 @@ const AuthContext = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  // user name update
   const updateName = (name) => {
     setLoading(true);
     return updateProfile(auth.currentUser, { displayName: name });
   };
+
+  // google login system
+  const googleSignIn = () => {
+    setLoading(true)
+    return signInWithPopup(auth, provider);
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -61,6 +71,7 @@ const AuthContext = ({ children }) => {
     updateName,
     setLoading,
     loading,
+    googleSignIn,
   };
 
   return (
