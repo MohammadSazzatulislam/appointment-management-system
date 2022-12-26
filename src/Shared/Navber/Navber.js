@@ -23,7 +23,7 @@ const Navber = () => {
               </Link>
               <div className="md:hidden flex items-center gap-2">
                 <Link
-                  to="/Signin"
+                  to="/signin"
                   className="px-4 py-2 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
                 >
                   Sign In
