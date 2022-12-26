@@ -21,7 +21,7 @@ const AuthContext = ({ children }) => {
   };
 
   //log in user
-  const logInUser = (email, password) => {
+  const signInUser = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -43,7 +43,7 @@ const AuthContext = ({ children }) => {
       });
   };
 
-  const userInfo = { user, signUpNewUser, logInUser, userSignOut };
+  const userInfo = { user, signUpNewUser, signInUser, userSignOut };
 
   return (
     <UserAuthContext.Provider value={userInfo}>
