@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserAuthContext } from "../../Context/AuthContext/AuthContext";
+import { UserAuthContext } from "../../Context/AuthContext";
+
 const Navber = () => {
   const { user, userSignOut } = useContext(UserAuthContext);
   const [navbar, setNavbar] = useState(false);
