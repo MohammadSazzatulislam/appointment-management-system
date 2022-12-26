@@ -12,12 +12,14 @@ const Navber = () => {
 
   return (
     <div>
-      <nav className="w-full px-5 gradient shadow">
+      <nav className="w-full px-5 bg-purple-500 shadow">
         <div className="justify-between  mx-auto items-center md:flex ">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
               <Link to="/">
-                <h2 className="text-2xl font-bold text-white">Appointment Management System</h2>
+                <h2 className="text-2xl font-bold text-white">
+                  Appointment Management System
+                </h2>
               </Link>
               <div className="md:hidden flex items-center gap-2">
                 <Link
@@ -78,7 +80,6 @@ const Navber = () => {
                     Appointment
                   </li>
                 </Link>
-                
               </ul>
             </div>
           </div>
@@ -95,7 +96,7 @@ const Navber = () => {
             ) : (
               <Link to="/signin">
                 <button className="px-4 py-2 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800">
-                    Sign In
+                  Sign In
                 </button>
               </Link>
             )}
