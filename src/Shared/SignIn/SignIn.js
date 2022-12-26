@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle, FaMailBulk, FaLock } from "react-icons/fa";
 import { UserAuthContext } from "../../Context/AuthContext";
 import { useForm } from "react-hook-form";
 
 const SignIn = () => {
-  const { user, signInUser } = useContext(UserAuthContext);
+    const { user, signInUser } = useContext(UserAuthContext);
+    const [signError, setSignError] = useState('')
   const {
     register,
     handleSubmit,
@@ -32,7 +33,7 @@ const SignIn = () => {
         // ...
       })
       .catch((error) => {
-        console.log(error.message);
+       setSignError(error.message)
       });
   };
 
@@ -67,17 +68,7 @@ const SignIn = () => {
                 </label>
                 <div className="relative">
                   <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                    </svg>
+                    <FaMailBulk className="h-6 w-6"></FaMailBulk>
                   </div>
 
                   <input
@@ -105,17 +96,7 @@ const SignIn = () => {
                 <div className="relative">
                   <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
                     <span>
-                      <svg
-                        className="h-6 w-6"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                      </svg>
+                      <FaLock className="h-6 w-6"></FaLock>
                     </span>
                   </div>
 
@@ -132,6 +113,9 @@ const SignIn = () => {
                   <small className="text-red-500">
                     {errors.password?.message}
                   </small>
+                )}
+                {signError && (
+                  <small className="text-red-500">{signError}</small>
                 )}
               </div>
 
